@@ -19,17 +19,23 @@ namespace CalculaJurosApi.Models
 
         private async Task<double> ObterTaxaJuros(IConfiguration config)
         {
-            HttpClient httpClient = new HttpClient();
-            Uri urlRequisicao = new Uri(config.GetSection("Urls").GetSection("UrlTaxaJuros").Value);
-            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(urlRequisicao);
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-
-            if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+            try
             {
-                return JsonConvert.DeserializeObject<double>(response);
-            }
+                HttpClient httpClient = new HttpClient();
+                Uri urlRequisicao = new Uri(config.GetSection("Urls").GetSection("UrlTaxaJuros").Value);
+                HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(urlRequisicao);
+                string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
-            return 0;
+                if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+                {
+                    return JsonConvert.DeserializeObject<double>(response);
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private double TrucanResultado(double valor) => Math.Truncate(100 * valor) / 100;

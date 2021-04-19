@@ -24,7 +24,15 @@ namespace CalculaJurosApi.Controllers
         [HttpGet]
         public async Task<IActionResult> SowMeTheCode()
         {
-            return Ok();
+            try
+            {
+                return Ok(_showMeTheCode.RetornaUrl(_config));
+
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity("Erro ao retornar a URL: " + ex.Message);
+            }
         }
     }
 }

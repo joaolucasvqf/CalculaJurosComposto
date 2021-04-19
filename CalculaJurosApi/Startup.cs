@@ -24,6 +24,7 @@ namespace CalculaJurosApi
             });
 
             services.AddTransient<ICalculaJuros, CalculaJuros>();
+            services.AddTransient<IShowMeTheCode, ShowMeTheCode>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

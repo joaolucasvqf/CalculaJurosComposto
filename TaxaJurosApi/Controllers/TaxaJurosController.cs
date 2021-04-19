@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TaxaJurosApi.Interfaces;
 
@@ -20,8 +21,15 @@ namespace TaxaJurosApi.Controllers
         [HttpGet]
         public async Task<IActionResult> RetornaTaxaDeJuros()
         {
-            var taxa = _taxaJuros.BuscaTaxaJuros();
-            return Ok(taxa);
+            try
+            {
+                var taxa = _taxaJuros.BuscaTaxaJuros();
+                return Ok(taxa);
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity("Erro ao buscar a taxa de Juros: " + ex);
+            }
         }
     }
 }

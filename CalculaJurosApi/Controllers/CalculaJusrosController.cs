@@ -33,7 +33,7 @@ namespace CalculaJurosApi.Controllers
             }
             catch (Exception ex)
             {
-                return UnprocessableEntity(ex);
+                return UnprocessableEntity("Erro ao realizar o calculo: " + ex.Message);
             }
         }
     }
